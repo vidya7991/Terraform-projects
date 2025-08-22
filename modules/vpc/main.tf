@@ -75,6 +75,7 @@ resource "aws_route_table_association" "public" {
 }
 
 resource "aws_route_table" "private" {
+  
   for_each = aws_nat_gateway.this
   vpc_id   = aws_vpc.this.id
 }
@@ -90,9 +91,10 @@ resource "aws_route_table_association" "private" {
   for_each       = aws_subnet.private
   subnet_id      = each.value.id
   route_table_id = aws_route_table.private[
-    var.azs[index(var.private_subnet_cidrs, each.value.cidr_block)]
-  ].id
+  keys(aws_nat_gateway.this)[index(var.azs, each.value.availability_zone)]
+].id
 }
+
 
 resource "aws_route_table" "db" {
   vpc_id = aws_vpc.this.id

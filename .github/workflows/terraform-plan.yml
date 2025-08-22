@@ -30,11 +30,15 @@ jobs:
       # Step 3: Terraform init
       - name: Terraform Init
         run: terraform init
+        working-directory: ./root
 
       # Step 4: Terraform plan
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        working-directory: ./root
 
       # Optional: Show plan in logs
       - name: Terraform Show Plan
         run: terraform show tfplan
+        working-directory: ./root
+
