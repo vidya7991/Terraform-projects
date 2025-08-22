@@ -40,3 +40,5 @@ jobs:
       # Optional: Show plan in logs
       - name: Terraform Show Plan
         run: terraform show tfplan
+        working-directory: ./root
+
